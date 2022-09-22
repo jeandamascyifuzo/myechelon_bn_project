@@ -125,7 +125,7 @@ const updatedUser = async (req, res) => {
 
 const userLogin = (req, res, next) => {
   User.find({ email: req.body.email })
-    .select("email isAdmin image")
+    .select("password email isAdmin image")
     .exec()
     .then(user => {
       if (user.length < 1) {
