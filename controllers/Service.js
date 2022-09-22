@@ -56,16 +56,16 @@ const deleteService = async (req, res) => {
 const updateService = async (req, res) => {
     try {
         var id = req.params.id;
-        let bodyData = req.body;
-        let data = await Service.findOneAndUpdate(
+        let data = await Service.updateOne(
             { _id: id },
-            { $set: bodyData });
+            { $set: {title:req.body.title, desc:req.body.desc, icon:req.body.icon} });
         const findeUpdaService = await Service.findOne({ _id: id });
         if (findeUpdaService) {
             message = `Service updated successful`;
             success(res, 200, findeUpdaService, message);
             return;
         }
+        
         else {
             message = `We don't have Service with this id: ${id}`;
             fail(res, 404, null, message);

@@ -1,4 +1,4 @@
-export default (info, user) => {
+module.exports = (info, user) => {
     /* c8 ignore next 2*/
     if(user == null ){ return `<p>${info}</p>`; }
     
@@ -400,7 +400,7 @@ export default (info, user) => {
                                                                         style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:helvetica, 'helvetica neue', arial, verdana, sans-serif;line-height:24px;color:#666666;font-size:16px">
                                                                         Hi<span
                                                                             style="font-family:roboto, 'helvetica neue', helvetica, arial, sans-serif"></span>,
-                                                                        <strong>${	user.fullname	}</strong><br></p>
+                                                                        <strong>${	user.name	}</strong><br></p>
                                                                 </td>
                                                             </tr>
                                                             <tr style="border-collapse:collapse">
