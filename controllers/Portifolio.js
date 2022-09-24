@@ -5,18 +5,16 @@ const { success, fail, sendError } = require('../function/respond')
 
 const createPortifolio = async (req, res) => {
     try {
-    const { desc, title, image } = req.body;
-    // const result = await cloudinary.uploader.upload(req.file.path);
-    const newPortifolio = new Portifolio({
-        title,
-        desc,
-        image
-    });
+        const { desc, title, image } = req.body;
+        const newPortifolio = new Portifolio({
+            title,
+            desc,
+            image
+        });
         const portifolioSaved = await newPortifolio.save();
-        console.log(portifolioSaved)
         return success(res, 201, portifolioSaved, "Portifolio added successful")
     } catch (error) {
-        return sendError(res,500,null,error.message)
+        return sendError(res, 500, null, error.message)
     }
 }
 
@@ -25,7 +23,7 @@ const getPortifolios = async (req, res) => {
         const portifolio = await Portifolio.find().sort("-createdAt");
         return success(res, 200, portifolio, "retrieved Portifolio")
     } catch (error) {
-        return sendError(res,500,null,error.message)
+        return sendError(res, 500, null, error.message)
     }
 }
 
@@ -36,7 +34,7 @@ const getPortifolio = async (req, res) => {
         if (!id) return fail(res, 400, null, "Wrong Id");
         return success(res, 200, portifolio, "retrieved Portifolio")
     } catch (error) {
-        return sendError(res,500,null,error.message)
+        return sendError(res, 500, null, error.message)
     }
 }
 
@@ -47,21 +45,19 @@ const deletePortifolio = async (req, res) => {
         if (!portifolio) return fail(res, 400, null, "Portifolio doesn't exist")
         return success(res, 200, null, "Portifolio deleted successful")
     } catch (error) {
-        return sendError(res,500,null,error.message)
+        return sendError(res, 500, null, error.message)
     }
 }
 
 const updatePortifolio = async (req, res) => {
     try {
         var id = req.params.id;
-        let bodyData = req.body;
-        let data = await Portifolio.findOneAndUpdate(
-            { _id: id },
-            { $set: bodyData });
-        const findeUpdaPortifolio = await Portifolio.findOne({ _id: id });
-        if (findeUpdaPortifolio) {
+        const updatedPortifolio = await Portifolio.findByIdAndUpdate({ _id: id }, req.body, {
+            new: true,
+        })
+        if (updatedPortifolio) {
             message = `Portifolio updated successful`;
-            success(res, 200, findeUpdaPortifolio, message);
+            success(res, 200, updatedPortifolio, message);
             return;
         }
         else {
@@ -71,7 +67,7 @@ const updatePortifolio = async (req, res) => {
         }
     }
     catch (error) {
-        return sendError(res,500,null,error.message)
+        return sendError(res, 500, null, error.message)
     }
 }
 

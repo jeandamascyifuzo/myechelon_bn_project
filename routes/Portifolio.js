@@ -12,7 +12,7 @@ router.get("/:id",  getPortifolio);
 
 router.delete("/:id",  deletePortifolio);
 
-router.put("/:id",  updatePortifolio);
+router.patch("/:id",  updatePortifolio);
 
 
 module.exports = router

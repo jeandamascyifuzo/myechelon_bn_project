@@ -12,7 +12,7 @@ router.get("/:id", getService)
 
 router.delete("/:id", deleteService)
 
-router.put("/:id", updateService)
+router.patch("/:id", updateService)
 
 
 module.exports = router

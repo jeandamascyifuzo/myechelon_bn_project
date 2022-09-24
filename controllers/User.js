@@ -90,35 +90,23 @@ const deletedUser = async (req, res) => {
 
 const updatedUser = async (req, res) => {
   try {
-    const id = req.params.id
-    const names = req.body.names
-    const email = req.body.email
-    const title = req.body.title
-    const telephone = req.body.telephone
-    const image = req.body.image
-    const password = req.body.password
-
-    const data = await User.findOne({ _d: id })
-    console.log("data", data)
-    if (data) {
-      const updatedUser = await User.findByIdAndUpdate({ _id: id }, {
-        $set: {
-          names: names,
-          email: email,
-          title: title,
-          telephone: telephone,
-          image: image,
-          password: hashPassword(password)
-        }
-      })
-      console.log("updatedUser", updatedUser)
-      res.status(200).json({ status: 'success', updatedUser, message: 'User updated👍🏾' });
-
-    } else {
-      res.status(200).json({ status: 'fail', message: 'something went wrong' });
+    var id = req.params.id;
+    let bodyData = req.body;
+    let data = await User.findOneAndUpdate(
+        { _id: id },
+        { $set: bodyData });
+    const findeUpdateUser = await User.findOne({ _id: id });
+    if (findeUpdateUser) {
+        message = `User updated successful`;
+        success(res, 200, findeUpdateUser, message);
+        return;
     }
-
-  } catch (error) {
+    else {
+        message = `We don't have User with this id ${id}`;
+        fail(res, 404, null, message);
+        return;
+    }
+} catch (error) {
     res.status(200).json({ status: 'fail', message: error });
   }
 }
@@ -154,7 +142,6 @@ const userLogin = (req, res, next) => {
           );
 
           const users = [user[0].names, user[0].email, user[0].telephone]
-          console.log("user:", users)
           return res.status(200).json({ status: 'success', user, token, message: 'Welcome 👍🏾' });
         }
         res.status(401).json({
@@ -180,7 +167,7 @@ const forgetPassword = async (req, res) => {
       expiresIn: "5m",
     });
 
-    const link = `http://localhost:5000/api/v1/team/reset-password/${oldUser._id}/${token}`;
+    const link = `${process.env.BASE_URL || 'http://localhost:5000/api/v1/team/reset-password/'}${oldUser._id}/${token}`;
     const message = `
     Dear ${oldUser.names},
     we're sending you this email because you requested a password reset. 
@@ -190,7 +177,7 @@ const forgetPassword = async (req, res) => {
 
     await sendEmail({
       email: oldUser.email,
-      subject: "Congratulations, welcome to Mychelon.",
+      subject: "Reset Password, welcome to Mychelon.",
       message,
     });
     return success(res, 201, { name: oldUser.names, email: oldUser.email }, "Email Sent successfully 👍🏾")
