@@ -10,13 +10,12 @@ router.get("/:id",  getUser);
 
 router.delete("/:id",  deletedUser);
 
-router.patch("/:id",  updatedUser);
+router.put("/:id",  updatedUser);
 
 router.post("/login", userLogin)
 
-router.post("/forgot-password", forgetPassword)
+router.post("/forgot/password", forgetPassword)
 
-router.post("/reset-password/:id/:token", resetPassword)
-
+router.post("/reset/password/:id/:token", resetPassword)
 
 module.exports = router
