@@ -5,11 +5,12 @@ const { success, fail, sendError } = require('../function/respond')
 
 
 const createMessage = async (req, res) => {
-    const { names, email, message } = req.body;
+    const { names, email, message, telephone } = req.body;
     const newMessage = new Message({
         names,
         email,
-        message
+        message,
+        telephone
     });
     try {
         const messageSaved = await newMessage.save();
