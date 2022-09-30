@@ -5,11 +5,12 @@ const { success, fail, sendError } = require('../function/respond')
 
 const createPortifolio = async (req, res) => {
     try {
-        const { desc, title, image } = req.body;
+        const { desc, title, image, link } = req.body;
         const newPortifolio = new Portifolio({
             title,
             desc,
-            image
+            image,
+            link
         });
         const portifolioSaved = await newPortifolio.save();
         return success(res, 201, portifolioSaved, "Portifolio added successful")

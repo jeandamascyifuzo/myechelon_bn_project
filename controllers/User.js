@@ -13,7 +13,7 @@ const { success, fail, sendError, generateToken } = require('../function/respond
 const createUser = async (req, res) => {
 
   try {
-    const { names, email, telephone, title, isAdmin } = req.body
+    const { names, email, telephone, title, isAdmin, image } = req.body
 
     const passwordNew = generator.generate({
       length: 11,
@@ -29,6 +29,7 @@ const createUser = async (req, res) => {
       telephone: telephone,
       password: hashPassword(password),
       title: title,
+      image: image,
       isAdmin: isAdmin,
     });
     const findUser = await User.findOne({ email: email });
@@ -55,7 +56,7 @@ const createUser = async (req, res) => {
       message,
     });
     const userSaved = await newUser.save();
-    return success(res, 201, { newUser: { names, email, title } }, "Email Sent successfully 👍🏾")
+    return success(res, 201, null, "Email Sent successfully 👍🏾")
   } catch (error) {
     return sendError(res, 500, null, error.message)
   }

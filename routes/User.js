@@ -10,7 +10,7 @@ router.get("/:id",  getUser);
 
 router.delete("/:id",  deletedUser);
 
-router.put("/:id",  updatedUser);
+router.patch("/:id",  updatedUser);
 
 router.post("/login", userLogin)
 

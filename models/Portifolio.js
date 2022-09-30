@@ -14,7 +14,7 @@ const PortifolioSchema = new mongoose.Schema({
     image: {
         type: String,
     },
-    cloudinary_id: {
+    link: {
         type: String,
       },
 },
