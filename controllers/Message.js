@@ -49,5 +49,4 @@ const deletedMessage = async (req, res) => {
     }
 }
 
-
 module.exports = { createMessage, getMessages, getMessage, deletedMessage };
