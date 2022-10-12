@@ -19,7 +19,6 @@ const createMessage = async (req, res) => {
         return sendError(res,500,null,error.message)
     }
 }
-
 const getMessages = async (req, res) => {
     try {
         const messages = await Message.find().sort("-createdAt");
