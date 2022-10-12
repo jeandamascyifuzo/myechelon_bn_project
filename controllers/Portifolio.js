@@ -71,5 +71,4 @@ const updatePortifolio = async (req, res) => {
     }
 }
 
-
 module.exports = { createPortifolio, getPortifolios, getPortifolio, deletePortifolio, updatePortifolio }
