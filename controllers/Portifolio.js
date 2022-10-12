@@ -2,7 +2,6 @@ const express = require('express')
 const Portifolio = require("../models/Portifolio");
 const { success, fail, sendError } = require('../function/respond')
 
-
 const createPortifolio = async (req, res) => {
     try {
         const { desc, title, image, link } = req.body;
