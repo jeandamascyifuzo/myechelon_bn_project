@@ -3,7 +3,6 @@ const express = require('express')
 const Message = require("../models/Message");
 const { success, fail, sendError } = require('../function/respond')
 
-
 const createMessage = async (req, res) => {
     const { names, email, message, telephone } = req.body;
     const newMessage = new Message({
