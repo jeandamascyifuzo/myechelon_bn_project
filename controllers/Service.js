@@ -2,7 +2,6 @@ const express = require('express')
 const Service = require("../models/Service");
 const { success, fail, sendError } = require('../function/respond')
 
-
 const createService = async (req, res) => {
     const { title, desc, icon } = req.body;
     const newService = new Service({
